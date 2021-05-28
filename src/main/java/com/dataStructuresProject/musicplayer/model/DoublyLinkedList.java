@@ -9,14 +9,7 @@ public class DoublyLinkedList {
     private Node tail;
     private int length;
 
-    public DoublyLinkedList(Song[] arr) {
-        this.head = null;
-        this.tail = null;
-        this.length = 0;
-        for (int i=0;i<arr.length;i++)
-            this.add(arr[i]);
-    }
-    
+
     public DoublyLinkedList(List<Song> arr) {
         this.head = null;
         this.tail = null;
@@ -25,36 +18,21 @@ public class DoublyLinkedList {
             this.add(arr.get(i));
     }
 
-    public DoublyLinkedList() {
-        this.head = null;
-        this.tail = null;
-        this.length = 0;
-    }
-    public DoublyLinkedList(Song song) {
-        this.head = new Node(song);
-        this.tail = null;
-        this.length = 1;
-    }
-
-    public boolean isEmpty()
-    {
-        return length == 0;
-    }
 
     public int getLength() {
         return length;
     }
 
-    public void add(Song song)
+    public void add(Song data)
     {
-        Node temp = new Node(song);
+        Node temp = new Node(data);
         if(head == null)
             head = temp;
         else
         {
             Node iter = head;
-            while (iter.getNext() != null)
-                iter = iter.getNext();
+            while (iter.next != null)
+                iter = iter.next;
 
             iter.next = temp;
             temp.prev = iter;
@@ -70,8 +48,8 @@ public class DoublyLinkedList {
         System.out.print("[");
         while(iter != null)
         {
-            System.out.print(iter.song.toString()+"\t");
-            iter = iter.getNext();
+            System.out.print(iter.data+"\t");
+            iter = iter.next;
         }
         System.out.println("]");
     }
@@ -82,122 +60,12 @@ public class DoublyLinkedList {
         System.out.print("[");
         while(iter != null)
         {
-            System.out.print(iter.song.toString()+"\t");
+            System.out.print(iter.data+"\t");
             iter = iter.prev;
         }
         System.out.println("]");
     }
-    
-    public boolean removeByIndex(int index)
-    {
-        if (index < 0)
-        {
-            System.out.println("Out of index");
-            return false;
-        }
-        if (index >= length)
-        {
-            System.out.println("Out of index");
-            return false;
-        }
 
-        if (index == length-1)
-        {
-            tail.prev.next = null;
-            tail = tail.prev;
-            length--;
-            return true;
-        }
-
-        Node iter;
-        int i;
-        if (index == 0)
-        {
-            head.getNext().prev = null;
-            head = head.getNext();
-            length--;
-            return true;
-        }
-
-        if (index > this.length / 2)
-        {
-            iter = tail;
-            for (i = this.length-1; i>index;i--)
-                iter = iter.prev;
-
-            iter.getNext().prev = iter.prev;
-            iter.prev.next = iter.getNext();
-            length--;
-            return true;
-        }
-        else if (index <= this.length / 2)
-        {
-            iter = head;
-            for(i = 0; i<index;i++)
-                iter = iter.getNext();
-
-            iter.getNext().prev = iter.prev;
-            iter.prev.next = iter.getNext();
-            length--;
-            return true;
-        }
-        return false;
-
-    }
-
-    public boolean insert(int index, Song song)
-    {
-        Node iter;
-        Node temp = new Node(song);
-        iter = takeNodebyIndex(index);
-        if (index == 0)
-        {
-            temp.next = iter;
-            iter.prev = temp;
-            head = temp;
-        }
-        else if (index == length-1)
-        {
-            tail.next = temp;
-            temp.prev = tail;
-            tail = temp;
-        }
-        else
-        {
-            temp.next = iter;
-            temp.prev = iter.prev;
-            iter.prev.next = temp;
-            iter.prev = temp;
-            return true;
-        }
-        return false;
-
-
-    }
-
-    public boolean swap(int i, int j)
-    {
-        if (i == j)
-        {
-            System.out.println("You cannot swap same node");
-            return false;
-        }
-        Node firstIter;
-        Node secondIter;
-
-        firstIter = takeNodebyIndex(i);
-        secondIter = takeNodebyIndex(j);
-
-        this.insert(j, firstIter.song);
-        this.insert(i, secondIter.song);
-
-        this.removeByIndex(i+1);
-        this.removeByIndex(j+1);
-        return true;
-
-
-
-    }
 
     public Node takeNodebyIndex(int i)
     {
@@ -211,68 +79,46 @@ public class DoublyLinkedList {
 
         return iter;
     }
-
-    public DoublyLinkedList subList(int end)
-    {
-        Node iter = head;
-        DoublyLinkedList subList = new DoublyLinkedList(iter.song);
-        for (int i =0; i<end;i++)
-        {
-            iter = iter.getNext();
-            subList.add(iter.song);
-        }
-        return subList;
-    }
-
-    public DoublyLinkedList subList(int start, int end)
-    {
-        Node iter = takeNodebyIndex(start);
-        DoublyLinkedList subList = new DoublyLinkedList(iter.song);
-        for (int i =0; i<end-start;i++)
-        {
-            iter = iter.getNext();
-            subList.add(iter.song);
-        }
-        return subList;
-    }
-      
-    public Song nextSong(Long song_id) {
+    
+    public Song nextSong(Long songId) {
     	
-    	System.out.println(song_id);
+    	Node iter = head;
     	
-    	Node node = this.takeNodebyIndex(0);
-    	while(node != null) {
-    		if(node.song.getId() == song_id) {
-    			System.out.println("denk");
-    			return node.next.song;
+    	for(int i = 0; i<this.length;i++) {
+    		if(iter.data.getId().toString().equals(songId.toString()) && iter.next != null) {
+    			return iter.next.data;
     		}
-    		node = node.next;
-    	}
-    	if(node == null) {
-    		System.out.println("denk değil");
+    		iter = iter.next;
     	}
     	return null;
-    	
-    
     }
     
+    public Song previousSong(Long songId) {
+    	
+    	Node iter = head;
+    	
+    	for(int i = 0; i<this.length;i++) {
+    		if(iter.data.getId().toString().equals(songId.toString()) && iter.prev != null) {
+    			return iter.prev.data;
+    		}
+    		iter = iter.next;
+    	}
+    	return null;
+    }
+
+
     public class Node {
-    	Song song;
+    	Song data;
         private Node next;
         private Node prev;
 
-        public Node(Song song)
+        public Node(Song data)
         {
-            this.song = song;
+            this.data = data;
             this.next = null;
             this.prev = null;
         }
-        public Node(Song song, Node next, Node prev)
-        {
-            this.song = song;
-            this.next = next;
-            this.prev = prev;
-        }
+
 
         public Node() {
             this.next = null;
@@ -282,8 +128,9 @@ public class DoublyLinkedList {
             this.next = next;
             this.prev = prev;
         }
-		public Node getNext() {
-			return this.next;
+		
+		public Song getdata() {
+			return this.data;
 		}
     }
 
