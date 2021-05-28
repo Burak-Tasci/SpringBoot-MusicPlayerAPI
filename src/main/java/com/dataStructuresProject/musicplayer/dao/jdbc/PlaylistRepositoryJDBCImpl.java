@@ -81,4 +81,10 @@ public class PlaylistRepositoryJDBCImpl implements PlaylistRepository {
 		
 	}
 
+	@Override
+	public void deleteSong(SongPlaylistConnection songPlaylistConnection) {
+		String sql = "delete from t_SongPlaylist where song_id =  ? and playlist_id = ?";
+		jdbcTemplate.update(sql,songPlaylistConnection.getSong_id(),songPlaylistConnection.getPlaylist_id());
+		
+	}
 }

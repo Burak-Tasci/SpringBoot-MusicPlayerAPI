@@ -19,6 +19,7 @@ public interface MusicPlayerService {
 	Playlist findPlaylistByName(String name) throws PlaylistNotFoundException;
 	void updatePlaylist(Playlist playlist);
 	void addSong(SongPlaylistConnection songPlaylistConnection);
+	void deleteSong(SongPlaylistConnection songPlaylistConnection);
 	
 	List<Song> findSongs();
 	List<Song> findSongByTrackName(String trackName) throws SongNotFoundException;

@@ -139,6 +139,11 @@ public class MusicPlayerServiceImpl implements MusicPlayerService {
 		return songRepository.findSongById(id);
 	}
 
+	@Override
+	public void deleteSong(SongPlaylistConnection songPlaylistConnection) {
+		playlistRepository.deleteSong(songPlaylistConnection);
+	}
+
 	
 	
 }

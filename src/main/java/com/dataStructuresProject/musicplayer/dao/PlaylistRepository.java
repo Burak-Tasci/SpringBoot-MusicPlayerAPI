@@ -14,5 +14,6 @@ public interface PlaylistRepository {
 	Playlist findByName(String name);
 	Playlist update(Playlist playlist);
 	void addSong(SongPlaylistConnection songPlaylistConnection);
+	void deleteSong(SongPlaylistConnection songPlaylistConnection);
 	
 }

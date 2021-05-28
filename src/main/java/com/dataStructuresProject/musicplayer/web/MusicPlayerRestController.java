@@ -162,6 +162,16 @@ public class MusicPlayerRestController {
 		return ResponseEntity.ok(songs);
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="/deleteSong")
+	public ResponseEntity deleteSong(@RequestBody SongPlaylistConnection songPlaylistConnection) {
+
+		System.out.println(songPlaylistConnection.toString());
+		
+		musicPlayerService.deleteSong(songPlaylistConnection);
+		return ResponseEntity.ok().build();
+		
+	}
+	
 	
 	
 }
