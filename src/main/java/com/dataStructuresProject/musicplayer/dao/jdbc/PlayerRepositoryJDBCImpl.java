@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dataStructuresProject.musicplayer.dao.PlayerRepository;
 import com.dataStructuresProject.musicplayer.model.DoublyLinkedList;
+import com.dataStructuresProject.musicplayer.model.Randomizing;
 import com.dataStructuresProject.musicplayer.model.Song;
 
 @Repository
@@ -72,8 +73,10 @@ public class PlayerRepositoryJDBCImpl implements PlayerRepository {
 				+ "ON s.id = sp.song_id "
 				+ "WHERE sp.playlist_id = ? ";
 		List<Song> songs = jdbcTemplate.query(sql,rowMapperSong,playlistId);
-		Collections.shuffle(songs);
-		return songs;
+		
+		Randomizing r = new Randomizing(songs);
+		
+		return r.randomize(songs.size());
 		
 
 	}

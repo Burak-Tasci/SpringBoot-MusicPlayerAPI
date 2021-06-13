@@ -3,6 +3,7 @@ package com.dataStructuresProject.musicplayer.dao;
 import java.util.List;
 
 import com.dataStructuresProject.musicplayer.model.Playlist;
+import com.dataStructuresProject.musicplayer.model.Song;
 import com.dataStructuresProject.musicplayer.model.SongPlaylistConnection;
 
 public interface PlaylistRepository {

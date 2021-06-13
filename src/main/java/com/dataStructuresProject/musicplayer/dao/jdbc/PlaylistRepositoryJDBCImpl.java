@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dataStructuresProject.musicplayer.dao.PlaylistRepository;
 import com.dataStructuresProject.musicplayer.model.Playlist;
+import com.dataStructuresProject.musicplayer.model.Song;
 import com.dataStructuresProject.musicplayer.model.SongPlaylistConnection;
 
 @Repository

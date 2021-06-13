@@ -166,7 +166,6 @@ public class MusicPlayerRestController {
 	public ResponseEntity deleteSong(@RequestBody SongPlaylistConnection songPlaylistConnection) {
 
 		System.out.println(songPlaylistConnection.toString());
-		
 		musicPlayerService.deleteSong(songPlaylistConnection);
 		return ResponseEntity.ok().build();
 		
